@@ -4,8 +4,9 @@ Client-side form rendering for Twitter-Bootstrap 3.
 
 ## Dependencies
 
-jQuery
-Underscore.js
+- jQuery
+- Underscore.js
+- Select2 (optional)
 
 ## Usage
 
@@ -35,7 +36,7 @@ form.render();
 
 ## Automatic form generation with Django
 
-Subclass JsModelForm an access the property json_form_fields on an instance.
+Subclass JsModelForm and access the property json_form_fields on an instance.
 
 ## Options
 

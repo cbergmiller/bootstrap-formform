@@ -104,7 +104,7 @@ var FormForm = (function($) {
 					<% if (data.icon) { %><span class="glyphicon glyphicon-<%= data.icon %>"></span><% } %>\
 					<span><%- data.label %></span>\
 				</button>', {variable: 'data'})
-		}; // ToDo: variable grid, select2, addon
+		}; // ToDo: variable grid, addon
 
 		/**
 		 * Render the Form and attach it to the DOM.
@@ -156,6 +156,11 @@ var FormForm = (function($) {
 					formField.find('input, select, textarea').val(field.value);
 				}
 				self.dom.append(formField);
+				if ( _.contains( ['select2', 'multiselect2'], field.type ) ) {
+					formField.find('select').select2({
+						theme: 'bootstrap'
+					});
+				}
 			});
 		};
 
@@ -167,6 +172,10 @@ var FormForm = (function($) {
 				return self.templates.input;
 			} else if ( _.has(self.templates, field.type) ) {
 				return self.templates[field.type]
+			} else  if ( field.type == 'select2') {
+				return self.templates['select']
+			} else  if ( field.type == 'multiselect2') {
+				return self.templates['multiselect']
 			} else {
 				throw 'Unkown field type: ' + field.type;
 			}
@@ -203,6 +212,15 @@ var FormForm = (function($) {
 			} else {
 				select.html(self.templates.options(field.choices));
 			}
+		};
+
+		/**
+		 * Get the field config object by name.
+		 */
+		self.getFieldByName = function(name) {
+			return _.find( self.fields, function(field) {
+				return field.name == name
+			})
 		};
 
 		/*
