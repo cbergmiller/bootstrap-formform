@@ -2,23 +2,28 @@
 
 Client-side form rendering for Twitter-Bootstrap 3.
 
-## usage
+## Dependencies
+
+jQuery
+Underscore.js
+
+## Usage
 
 ```javascript
 var fields, form;
 
 fields = [
 	{
-		name: 'name',
-		label: 'Speichern',
+		name: 'username',
+		label: 'Benutzername',
 		type: 'text'
 	}, {
 		name: 'password',
 		label: 'Passwort',
 		type: 'password'
 	}, {
-		name: 'save',
-		label: 'Speichern',
+		name: 'login',
+		label: 'Anmelden',
 		type: 'submit',
 		icon: 'ok'
 	}
@@ -31,3 +36,9 @@ form.render();
 ## Automatic form generation with Django
 
 Subclass JsModelForm an access the property json_form_fields on an instance.
+
+## Options
+
+### Horizontal forms
+
+Set `form.isHorizontal = true` before rendering for horizontal forms.
