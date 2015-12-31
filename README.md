@@ -2,6 +2,10 @@
 
 Client-side form rendering for Twitter-Bootstrap 3.
 
+## Example
+
+http://www.bergmiller.de/formform_demo.html
+
 ## Dependencies
 
 - jQuery

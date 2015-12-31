@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Bootstrap-FormForm Demo</title>
+	<link href="vendor/css/bootstrap.min.css" rel="stylesheet">
+	<link href="vendor/css/select2.min.css" rel="stylesheet">
+	<link href="vendor/css/select2-bootstrap.min.css" rel="stylesheet">
+	<script src="vendor/js/jquery-1.11.3.min.js"></script>
+	<script src="vendor/js/underscore-min.js"></script>
+	<script src="vendor/js/select2.min.js"></script>
+	<script src="vendor/js/bootstrap.min.js"></script>
+	<script src="vendor/js/formatter.js"></script>
+	<script src="vendor/js/jsonlint.js"></script>
+	<script src="vendor/js/alert.js"></script>
+	<script src="src/bootstrap-formform.js"></script>
+	<script>
+		$(document).ready(function() {
+			var demoInput, example, outputForm;
+
+			example = [
+				{
+					name: 'username',
+					label: 'Benutzername',
+					type: 'text'
+				}, {
+					name: 'password',
+					label: 'Passwort',
+					type: 'password'
+				}, {
+					name: 'fruit',
+					label: 'Obst',
+					choices: [
+						['apple', 'Apfel'],
+						['pear', 'Birne'],
+						['orange', 'Orange']
+					],
+					type: 'select'
+				}, {
+					name: 'login',
+					label: 'Anmelden',
+					type: 'submit',
+					icon: 'ok'
+				}
+			];
+			example = JSON.stringify(example);
+			example = formatter.formatJson(example);
+			demoInput = $('#form-demo-input');
+			demoInput.val( example );
+
+			outputForm = $('#form-demo-output');
+			outputForm.submit(function() {return false});
+
+			$('#btn-render').click(function() {
+				var inputJson, form, formFields, inputAlert;
+
+				inputAlert = $('#input-alert');
+				inputAlert.empty();
+				inputJson = demoInput.val();
+				try {
+					jsonlint.parse(inputJson);
+				} catch(e) {
+					inputAlert.addAlert('danger', e.message.replace(/\n/g, '<br>'));
+					return
+				}
+				formFields = JSON.parse(inputJson);
+				outputForm.empty();
+				form = FormForm( outputForm, formFields );
+				form.render();
+			});
+
+
+		});
+	</script>
+	<style>
+		#input-alert,
+		#form-demo-input {
+			font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">
+					<h1>Bootstrap-FormForm</h1>
+					<a href="https://github.com/cbergmiller/bootstrap-formform">https://github.com/cbergmiller/bootstrap-formform</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<form>
+					<div class="form-group">
+						<label for="form-demo-input">JSON source</label>
+						<textarea class="form-control" rows="32" id="form-demo-input"></textarea>
+					</div>
+					<div id="input-alert"></div>
+					<button type="button" class="btn btn-primary btn-lg" id="btn-render">Render Form</button>
+				</form>
+			</div>
+			<div class="col-md-6">
+				<form id="form-demo-output">
+				</form>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px">
+			<div class="col-md-12">
+				<p>JSON Lint provided by <a href="https://github.com/zaach/jsonlint">https://github.com/zaach/jsonlint</a></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
