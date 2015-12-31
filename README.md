@@ -1,6 +1,6 @@
-# bootstrap-formform
+# Bootstrap-FormForm
 
-Client-side form rendering for Twitter-Bootstrap 3.
+Client-side form rendering for Bootstrap 3.
 
 ## Example
 
