@@ -27,9 +27,9 @@ fields = [
 		label: 'Passwort',
 		type: 'password'
 	}, {
-		name: 'login',
 		label: 'Anmelden',
 		type: 'submit',
+		class: 'btn-default',
 		icon: 'ok'
 	}
 ];

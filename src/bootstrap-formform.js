@@ -156,7 +156,7 @@ var FormForm = (function($) {
 					formField.find('input, select, textarea').val(field.value);
 				}
 				self.dom.append(formField);
-				if ( _.contains( ['select2', 'multiselect2'], field.type ) ) {
+				if ( _.contains( ['select2', 'selectmultiple2'], field.type ) ) {
 					formField.find('select').select2({
 						theme: 'bootstrap'
 					});
@@ -174,8 +174,8 @@ var FormForm = (function($) {
 				return self.templates[field.type]
 			} else  if ( field.type == 'select2') {
 				return self.templates['select']
-			} else  if ( field.type == 'multiselect2') {
-				return self.templates['multiselect']
+			} else  if ( field.type == 'selectmultiple2') {
+				return self.templates['selectmultiple']
 			} else {
 				throw 'Unkown field type: ' + field.type;
 			}
