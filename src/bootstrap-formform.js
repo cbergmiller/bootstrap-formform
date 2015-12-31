@@ -100,7 +100,7 @@ var FormForm = (function($) {
 					</label>\
 				</div>', {variable: 'data'}),
 			button: _.template(
-				'<button type="<%= data.type %>" class="btn btn-grey btn-<% data.name %>">\
+				'<button type="<%= data.type %>" class="btn <%= data.class %>">\
 					<% if (data.icon) { %><span class="glyphicon glyphicon-<%= data.icon %>"></span><% } %>\
 					<span><%- data.label %></span>\
 				</button>', {variable: 'data'})
