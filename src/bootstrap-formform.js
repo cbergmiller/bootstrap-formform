@@ -22,29 +22,31 @@ var FormForm = (function($) {
 		var self = {};
 
 		self.isHorizontal = false;
+		self.col1 = 4;
+		self.col2 = 8;
 		self.fields = fields;
 		self.dom = dom;
 		self.templates= {
 			group: _.template(
 				'<div class="form-group">\
-					<label for="<%= data.id %>"><%- data.label %></label>\
+					<label for="<%= data.id %>"><%- data.field.label %></label>\
 					<%= data.renderedData %>\
 					<span class="help-block"></span>\
 				</div>', {variable: 'data'}),
 			horizontalGroup: _.template(
 				'<div class="form-group">\
-					<label class="col-sm-4 control-label" for="<%= data.id %>"><%- data.label %></label>\
-					<div class="col-sm-8">\
+					<label class="col-sm-<%= data.col1 %> control-label" for="<%= data.id %>"><%- data.field.label %></label>\
+					<div class="col-sm-<%= data.col2 %>">\
 						<%= data.renderedData %>\
 					</div>\
-					<div class="col-sm-4"></div>\
-					<div class="col-sm-8">\
+					<div class="col-sm-<%= data.col1 %>"></div>\
+					<div class="col-sm-<%= data.col2 %>">\
 						<span class="help-block" style="margin: 0"></span>\
 					</div>\
 				</div>', {variable: 'data'}),
 			horizontalOffsetGroup: _.template(
 				'<div class="form-group">\
-					<div class="col-sm-offset-4 col-sm-8">\
+					<div class="col-sm-offset-<%= data.col1 %> col-sm-<%= data.col2 %>">\
 						<%= data.renderedData %>\
 					</div>\
 				</div>', {variable: 'data'}),
@@ -96,7 +98,7 @@ var FormForm = (function($) {
 			checkbox: _.template(
 				'<div class="checkbox">\
 					<label>\
-						<input type="checkbox" name="<%= data.name %>"> <%- data.label %>\
+						<input type="checkbox" name="<%= data.name %>" <% if (data.value){ %>checked="checked"<% } %>> <%- data.label %>\
 					</label>\
 				</div>', {variable: 'data'}),
 			button: _.template(
@@ -104,7 +106,53 @@ var FormForm = (function($) {
 					<% if (data.icon) { %><span class="glyphicon glyphicon-<%= data.icon %>"></span><% } %>\
 					<span><%- data.label %></span>\
 				</button>', {variable: 'data'})
-		}; // ToDo: variable grid, addon
+		}; // ToDo: addon
+
+		self.typeConfig = {
+			text: {
+				template: self.templates.input,
+				value: true
+			},
+			password: {
+				template: self.templates.input,
+				value: true
+			},
+			number: {
+				template: self.templates.input,
+				value: true
+			},
+			textarea: {
+				template: self.templates.textarea,
+				value: true
+			},
+			checkboxinput: {
+				template: self.templates.checkbox
+			},
+			select: {
+				template: self.templates.select,
+				value: true
+			},
+			selectmultiple: {
+				template: self.templates.selectmultiple,
+				value: true
+			},
+			select2: {
+				template: self.templates.select,
+				value: true,
+				select2: true
+			},
+			selectmultiple2: {
+				template: self.templates.selectmultiple,
+				value: true,
+				select2: true
+			},
+			button: {
+				template: self.templates.button
+			},
+			submit: {
+				template: self.templates.button
+			}
+		};
 
 		/**
 		 * Render the Form and attach it to the DOM.
@@ -126,7 +174,11 @@ var FormForm = (function($) {
 				renderedButtons += self.templates.button(field);
 			});
 			if (self.isHorizontal) {
-				renderedButtons = self.templates.horizontalOffsetGroup({renderedData: renderedButtons})
+				renderedButtons = self.templates.horizontalOffsetGroup({
+					renderedData: renderedButtons,
+					col1: self.col1,
+					col2: self.col2
+				})
 			}
 			self.dom.append(renderedButtons);
 		};
@@ -139,27 +191,33 @@ var FormForm = (function($) {
 			_.each(self.fields, function(field) {
 				var formField,
 					inputTemplate,
-					groupTemplate;
+					groupTemplate,
+					typeConfig;
 
 				// skip buttons
 				if ( _.contains( ['button', 'submit'], field.type ) ) return;
+
+				typeConfig = self.typeConfig[field.type];
 				if (!field.id) field.id = _.uniqueId();
 				inputTemplate = self._getInputTemplate(field);
 				groupTemplate = self._getGroupTemplate(field);
-				field.renderedData = inputTemplate(field);
-				formField = $( groupTemplate(field) );
-
+				formField = $(
+					groupTemplate({
+						field: field,
+						renderedData: inputTemplate(field),
+						col1: self.col1,
+						col2: self.col2
+					})
+				);
 				// Select-Optionen Rendern
 				if ( field.choices ) self._renderChoices(formField, field);
 				// Initialen Wert setzten
-				if ( _.has(field, 'value') && field.type != 'file' ) {
+				if ( _.has(field, 'value') && typeConfig.value ) {
 					formField.find('input, select, textarea').val(field.value);
 				}
 				self.dom.append(formField);
-				if ( _.contains( ['select2', 'selectmultiple2'], field.type ) ) {
-					formField.find('select').select2({
-						theme: 'bootstrap'
-					});
+				if ( typeConfig.select2 ) {
+					formField.find('select').select2({theme: 'bootstrap'});
 				}
 			});
 		};
@@ -168,14 +226,8 @@ var FormForm = (function($) {
 		 * Get the matching template for a form-field.
 		 */
 		self._getInputTemplate = function(field) {
-			if ( _.contains(['text', 'password'], field.type) ) {
-				return self.templates.input;
-			} else if ( _.has(self.templates, field.type) ) {
-				return self.templates[field.type]
-			} else  if ( field.type == 'select2') {
-				return self.templates['select']
-			} else  if ( field.type == 'selectmultiple2') {
-				return self.templates['selectmultiple']
+			if (self.typeConfig[field.type]) {
+				return self.typeConfig[field.type].template
 			} else {
 				throw 'Unkown field type: ' + field.type;
 			}
