@@ -21,7 +21,7 @@ var FormForm = (function($) {
 	return function(dom, fields) {
 		var self = {};
 
-		self.isHorizontal = false;
+		self.isHorizontal = dom.hasClass('form-horizontal');
 		self.col1 = 4;
 		self.col2 = 8;
 		self.fields = fields;
@@ -57,7 +57,7 @@ var FormForm = (function($) {
 				'<select multiple="multiple" class="form-control" name="<%= data.name %>" id="<%= data.id %>"></select>'
 				, {variable: 'data'}),
 			input: _.template(
-				'<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>" />'
+				'<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>" <% if (data.value){ %>value="<%- data.value %>"<% } %>/>'
 				, {variable: 'data'}),
 			textarea: _.template(
 				'<textarea name="<%= data.name %>" class="form-control" id="<%= data.id %>" rows="4"></textarea>'
@@ -110,16 +110,16 @@ var FormForm = (function($) {
 
 		self.typeConfig = {
 			text: {
-				template: self.templates.input,
-				value: true
+				template: self.templates.input
 			},
 			password: {
-				template: self.templates.input,
-				value: true
+				template: self.templates.input
 			},
 			number: {
-				template: self.templates.input,
-				value: true
+				template: self.templates.input
+			},
+			hidden: {
+				template: self.templates.input
 			},
 			textarea: {
 				template: self.templates.textarea,
@@ -198,7 +198,7 @@ var FormForm = (function($) {
 				if ( _.contains( ['button', 'submit'], field.type ) ) return;
 
 				typeConfig = self.typeConfig[field.type];
-				if (!field.id) field.id = _.uniqueId();
+				if (!field.id) field.id = _.uniqueId('formform');
 				inputTemplate = self._getInputTemplate(field);
 				groupTemplate = self._getGroupTemplate(field);
 				formField = $(
@@ -237,13 +237,12 @@ var FormForm = (function($) {
 		 * Get the matching template for a form-group.
 		 */
 		self._getGroupTemplate = function(field) {
-			if ( field.type == 'checkbox') {
-				if (self.isHorizontal) {
-					return self.templates.horizontalOffsetGroup
-				} else {
-					return function(field) {
-						return field.renderedInput
-					}
+			if ( field.type == 'checkboxinput' && self.isHorizontal) {
+				return self.templates.horizontalOffsetGroup
+			} else if ( _.contains(['checkboxinput', 'hidden'], field.type) ) {
+				// no form-group
+				return function(data) {
+					return data.renderedData
 				}
 			} else if (self.isHorizontal) {
 				return self.templates.horizontalGroup
@@ -256,13 +255,15 @@ var FormForm = (function($) {
 		 * Render options for a select-box
 		 */
 		self._renderChoices = function (formField, field) {
-			var select;
+			var select, choices;
 
+			choices = field.choices;
+			if (!_.isArray(choices) || !choices.length) return;
 			select = formField.find('select');
-			if ( _.isArray( field.choices[0][1] ) ) {
-				select.html(self.templates.optGroups(field.choices));
+			if ( _.isArray( choices[0][1] ) ) {
+				select.html(self.templates.optGroups(choices));
 			} else {
-				select.html(self.templates.options(field.choices));
+				select.html(self.templates.options(choices));
 			}
 		};
 

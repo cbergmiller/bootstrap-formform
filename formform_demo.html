@@ -51,7 +51,7 @@
 			outputForm = $('#form-demo-output');
 			outputForm.submit(function() {return false});
 
-			$('#btn-render').click(function() {
+			$('.btn-render').click(function() {
 				var inputJson, form, formFields, inputAlert;
 
 				inputAlert = $('#input-alert');
@@ -65,6 +65,11 @@
 				}
 				formFields = JSON.parse(inputJson);
 				outputForm.empty();
+				if ( $(this).hasClass('btn-render-horizontal') ) {
+					outputForm.addClass('form-horizontal');
+				} else {
+					outputForm.removeClass('form-horizontal');
+				}
 				form = FormForm( outputForm, formFields );
 				try {
 					form.render();
@@ -72,8 +77,6 @@
 					inputAlert.addAlert('danger', e);
 				}
 			});
-
-
 		});
 	</script>
 	<style>
@@ -101,11 +104,12 @@
 						<textarea class="form-control" rows="32" id="form-demo-input"></textarea>
 					</div>
 					<div id="input-alert"></div>
-					<button type="button" class="btn btn-primary btn-lg" id="btn-render">Render form</button>
+					<button type="button" class="btn btn-primary btn-render">Render form</button>
+					<button type="button" class="btn btn-primary btn-render btn-render-horizontal">Render horizontal form</button>
 				</form>
 			</div>
 			<div class="col-md-6">
-				<form id="form-demo-output">
+				<form id="form-demo-output" class="form-horizontal">
 				</form>
 			</div>
 		</div>

@@ -46,4 +46,4 @@ Subclass JsModelForm and access the property json_form_fields on an instance.
 
 ### Horizontal forms
 
-Set `form.isHorizontal = true` before rendering for horizontal forms.
+Horizontal forms are supported. Add `class="form-horizontal` to the form-tag.
