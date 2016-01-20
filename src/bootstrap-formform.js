@@ -7,10 +7,11 @@
  *    {
  * 		name: '',
  * 		label: '',
- * 		type: 'select',
+ * 		addonPrepend: '',
+ * 		addonAppend: '',
+ * 		type: '',
  * 		'class': '',
  * 		id: null,
- * 		appendLabel: '',
  * 		default: '',
  * 		choices: []
  *    }
@@ -32,6 +33,16 @@ var FormForm = (function($) {
 					<label for="<%= data.id %>"><%- data.field.label %></label>\
 					<%= data.renderedData %>\
 					<span class="help-block"></span>\
+				</div>', {variable: 'data'}),
+			inputGroup: _.template(
+				'<div class="input-group">\
+					<% if (data.field.addonPrepend) { %>\
+						<div class="input-group-addon"><%- data.field.addonPrepend %></div>\
+					<% } %>\
+					<%= data.renderedData %>\
+					<% if (data.field.addonAppend) { %>\
+						<div class="input-group-addon"><%- data.field.addonAppend %></div>\
+					<% } %>\
 				</div>', {variable: 'data'}),
 			horizontalGroup: _.template(
 				'<div class="form-group">\
@@ -146,6 +157,9 @@ var FormForm = (function($) {
 				value: true,
 				select2: true
 			},
+			file: {
+				template: self.templates.file
+			},
 			button: {
 				template: self.templates.button
 			},
@@ -191,6 +205,7 @@ var FormForm = (function($) {
 			_.each(self.fields, function(field) {
 				var formField,
 					inputTemplate,
+					inputGroupTemplate,
 					groupTemplate,
 					typeConfig;
 
@@ -200,11 +215,15 @@ var FormForm = (function($) {
 				typeConfig = self.typeConfig[field.type];
 				if (!field.id) field.id = _.uniqueId();
 				inputTemplate = self._getInputTemplate(field);
+				inputGroupTemplate = self._getInputGroupTemplate(field);
 				groupTemplate = self._getGroupTemplate(field);
 				formField = $(
 					groupTemplate({
 						field: field,
-						renderedData: inputTemplate(field),
+						renderedData: inputGroupTemplate({
+							field: field,
+							renderedData: inputTemplate(field)
+						}),
 						col1: self.col1,
 						col2: self.col2
 					})
@@ -230,6 +249,16 @@ var FormForm = (function($) {
 				return self.typeConfig[field.type].template
 			} else {
 				throw 'Unkown field type: ' + field.type;
+			}
+		};
+
+		self._getInputGroupTemplate = function(field) {
+			if (field.addonPrepend || field.addonAppend) {
+				return self.templates.inputGroup
+			} else {
+				return function(field) {
+					return field.renderedData
+				}
 			}
 		};
 
