@@ -3,7 +3,7 @@
 
 /*
  * Bootstrap-FormForm
- * Christian Bergmiller 2015
+ * Christian Bergmiller 2015/2016
  * https://github.com/cbergmiller/bootstrap-formform
  *
  * fields = [
@@ -22,23 +22,23 @@
 
 
 interface FieldConfig {
-	name: string;
+	type: string;
+	name?: string;
 	label?: string;
 	addonPrepend?: string;
 	addonAppend?: string;
-	type: string;
 	cls?: string;
 	id?: string;
-	value: any;
-	choices: Array<Array<string>>;
+	value?: any;
+	choices?: Array<Array<string>>;
 }
 
 class FormForm {
-	isHorizontal:boolean;
-	col1:number;
-	col2:number;
-	fields:Array<FieldConfig>;
-	dom:JQuery;
+	isHorizontal: boolean;
+	col1: number;
+	col2: number;
+	fields: Array<FieldConfig>;
+	dom: JQuery;
 
 	static templates = {
 		group: _.template(
@@ -186,6 +186,7 @@ class FormForm {
 		this.fields = fields;
 		this.col1 = 4;
 		this.col2 = 8;
+		this.isHorizontal = dom.hasClass('form-horizontal');
 	}
 
 	/**

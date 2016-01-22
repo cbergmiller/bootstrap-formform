@@ -6,6 +6,7 @@ var FormForm = (function () {
         this.fields = fields;
         this.col1 = 4;
         this.col2 = 8;
+        this.isHorizontal = dom.hasClass('form-horizontal');
     }
     /**
      * Render the Form and attach it to the DOM.
