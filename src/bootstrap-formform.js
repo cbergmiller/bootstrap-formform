@@ -42,7 +42,7 @@ var FormForm = (function () {
     FormForm.prototype._renderFields = function () {
         var _this = this;
         _.each(this.fields, function (field) {
-            var formField, inputTemplate, inputGroupTemplate, groupTemplate, typeConfig;
+            var formField, inputTemplate, inputGroupTemplate, groupTemplate, typeConfig, select2cfg;
             // skip buttons
             if (_.contains(['button', 'submit'], field.type))
                 return;
@@ -70,7 +70,10 @@ var FormForm = (function () {
             }
             _this.dom.append(formField);
             if (typeConfig.select2) {
-                formField.find('select').select2({ theme: 'bootstrap' });
+                select2cfg = { theme: 'bootstrap' };
+                if (_.has(field, 'placeholder'))
+                    select2cfg.placeholder = field.placeholder;
+                formField.find('select').select2(select2cfg);
             }
         });
     };
@@ -179,7 +182,8 @@ var FormForm = (function () {
 			</div>', { variable: 'data' }),
         select: _.template('<select name="<%= data.name %>" class="form-control" id="<%= data.id %>"></select>', { variable: 'data' }),
         selectmultiple: _.template('<select multiple="multiple" class="form-control" name="<%= data.name %>" id="<%= data.id %>"></select>', { variable: 'data' }),
-        input: _.template('<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>" <% if (data.value){ %>value="<%- data.value %>"<% } %>/>', { variable: 'data' }),
+        input: _.template('<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>"\
+            <% if (data.value){ %>value="<%- data.value %>"<% } %> <% if (data.placeholder){ %>value="<%- data.placeholder %>"<% } %> />', { variable: 'data' }),
         textarea: _.template('<textarea name="<%= data.name %>" class="form-control" id="<%= data.id %>" rows="4"></textarea>', { variable: 'data' }),
         file: _.template('<div class="controls" style="height: 34px;">\
 				<div class="fileinput <% if (data.value) { %>fileinput-exists<% } else { %>fileinput-new<% } %>" data-provides="fileinput">\

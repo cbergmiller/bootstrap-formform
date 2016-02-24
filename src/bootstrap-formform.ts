@@ -15,7 +15,8 @@
  * 		type: '',
  * 		'class': '',
  * 		id: null,
- * 		choices: []
+ * 		choices: [],
+ *      placeholder : '',
  *    }
  * ];
 */
@@ -31,6 +32,7 @@ interface FieldConfig {
 	id?: string;
 	value?: any;
 	choices?: Array<Array<string>>;
+    placeholder?: string;
 }
 
 class FormForm {
@@ -81,7 +83,8 @@ class FormForm {
 			'<select multiple="multiple" class="form-control" name="<%= data.name %>" id="<%= data.id %>"></select>'
 			, {variable: 'data'}),
 		input: _.template(
-			'<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>" <% if (data.value){ %>value="<%- data.value %>"<% } %>/>'
+			'<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>"\
+            <% if (data.value){ %>value="<%- data.value %>"<% } %> <% if (data.placeholder){ %>value="<%- data.placeholder %>"<% } %> />'
 			, {variable: 'data'}),
 		textarea: _.template(
 			'<textarea name="<%= data.name %>" class="form-control" id="<%= data.id %>" rows="4"></textarea>'
@@ -229,7 +232,8 @@ class FormForm {
 				inputTemplate,
 				inputGroupTemplate,
 				groupTemplate,
-				typeConfig;
+				typeConfig,
+                select2cfg;
 
 			// skip buttons
 			if (_.contains(['button', 'submit'], field.type)) return;
@@ -258,7 +262,9 @@ class FormForm {
 			}
 			_this.dom.append(formField);
 			if (typeConfig.select2) {
-				formField.find('select').select2({theme: 'bootstrap'});
+                select2cfg = {theme: 'bootstrap'};
+                if (_.has(field, 'placeholder')) select2cfg.placeholder = field.placeholder;
+				formField.find('select').select2(select2cfg);
 			}
 		});
 	}
