@@ -151,7 +151,7 @@ var FormForm = (function () {
         group: _.template('<div class="form-group">\
 				<label for="<%= data.id %>"><%- data.field.label %></label>\
 				<%= data.renderedData %>\
-				<span class="help-block"></span>\
+				<span class="help-block"><%- data.field.helpText %></span>\
 			</div>', { variable: 'data' }),
         inputGroup: _.template('<div class="input-group">\
 				<% if (data.field.addonPrepend) { %>\
@@ -169,7 +169,7 @@ var FormForm = (function () {
 				</div>\
 				<div class="col-sm-<%= data.col1 %>"></div>\
 				<div class="col-sm-<%= data.col2 %>">\
-					<span class="help-block" style="margin: 0"></span>\
+					<span class="help-block" style="margin: 0"><%- data.field.helpText %></span>\
 				</div>\
 			</div>', { variable: 'data' }),
         horizontalOffsetGroup: _.template('<div class="form-group">\
@@ -270,5 +270,5 @@ var FormForm = (function () {
         }
     };
     return FormForm;
-})();
+}());
 //# sourceMappingURL=bootstrap-formform.js.map
