@@ -137,50 +137,55 @@ class FormForm {
 
 	static typeConfig = {
 		text: {
-			template: FormForm.templates.input
+			template: FormForm.templates.input,
 		},
 		password: {
-			template: FormForm.templates.input
+			template: FormForm.templates.input,
 		},
 		number: {
-			template: FormForm.templates.input
+			template: FormForm.templates.input,
 		},
 		hidden: {
-			template: FormForm.templates.input
+			template: FormForm.templates.input,
 		},
 		textarea: {
 			template: FormForm.templates.textarea,
-			value: true
+			value: true,
 		},
 		checkboxinput: {
-			template: FormForm.templates.checkbox
+			template: FormForm.templates.checkbox,
 		},
 		select: {
 			template: FormForm.templates.select,
-			value: true
+			value: true,
 		},
 		selectmultiple: {
 			template: FormForm.templates.selectmultiple,
-			value: true
+			value: true,
 		},
 		select2: {
 			template: FormForm.templates.select,
 			value: true,
-			select2: true
+			select2: true,
 		},
 		selectmultiple2: {
 			template: FormForm.templates.selectmultiple,
 			value: true,
-			select2: true
+			select2: true,
 		},
 		file: {
-			template: FormForm.templates.file
+			template: FormForm.templates.file,
 		},
 		button: {
-			template: FormForm.templates.button
+			template: FormForm.templates.button,
 		},
 		submit: {
-			template: FormForm.templates.button
+			template: FormForm.templates.button,
+		},
+		markdown: {
+			template: FormForm.templates.textarea,
+			value: true,
+			bootstrapMarkdown: true,
 		}
 	};
 
@@ -265,6 +270,9 @@ class FormForm {
                 select2cfg = {theme: 'bootstrap'};
                 if (_.has(field, 'placeholder')) select2cfg.placeholder = field.placeholder;
 				formField.find('select').select2(select2cfg);
+			}
+			if (typeConfig.bootstrapMarkdown) {
+				formField.find('textarea').markdown();
 			}
 		});
 	}

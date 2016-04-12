@@ -75,6 +75,9 @@ var FormForm = (function () {
                     select2cfg.placeholder = field.placeholder;
                 formField.find('select').select2(select2cfg);
             }
+            if (typeConfig.bootstrapMarkdown) {
+                formField.find('textarea').markdown();
+            }
         });
     };
     /**
@@ -271,6 +274,11 @@ var FormForm = (function () {
         },
         submit: {
             template: FormForm.templates.button
+        },
+        markdown: {
+            template: FormForm.templates.textarea,
+            value: true,
+            bootstrapMarkdown: true
         }
     };
     return FormForm;
