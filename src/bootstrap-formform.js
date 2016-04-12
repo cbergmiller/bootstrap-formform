@@ -282,5 +282,5 @@ var FormForm = (function () {
         }
     };
     return FormForm;
-}());
+})();
 //# sourceMappingURL=bootstrap-formform.js.map
