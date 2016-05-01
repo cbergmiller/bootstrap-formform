@@ -85,7 +85,7 @@ class FormForm {
 			, {variable: 'data'}),
 		input: _.template(
 			'<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>"\
-            <% if (data.value){ %>value="<%- data.value %>"<% } %> <% if (data.placeholder){ %>value="<%- data.placeholder %>"<% } %> />'
+            <% if (data.value){ %>value="<%- data.value %>"<% } %> <% if (data.placeholder){ %>placeholder="<%- data.placeholder %>"<% } %> />'
 			, {variable: 'data'}),
 		textarea: _.template(
 			'<textarea name="<%= data.name %>" class="form-control" id="<%= data.id %>" rows="4"></textarea>'

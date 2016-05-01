@@ -186,7 +186,7 @@ var FormForm = (function () {
         select: _.template('<select name="<%= data.name %>" class="form-control" id="<%= data.id %>"></select>', { variable: 'data' }),
         selectmultiple: _.template('<select multiple="multiple" class="form-control" name="<%= data.name %>" id="<%= data.id %>"></select>', { variable: 'data' }),
         input: _.template('<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>"\
-            <% if (data.value){ %>value="<%- data.value %>"<% } %> <% if (data.placeholder){ %>value="<%- data.placeholder %>"<% } %> />', { variable: 'data' }),
+            <% if (data.value){ %>value="<%- data.value %>"<% } %> <% if (data.placeholder){ %>placeholder="<%- data.placeholder %>"<% } %> />', { variable: 'data' }),
         textarea: _.template('<textarea name="<%= data.name %>" class="form-control" id="<%= data.id %>" rows="4"></textarea>', { variable: 'data' }),
         file: _.template('<div class="controls" style="height: 34px;">\
 				<div class="fileinput <% if (data.value) { %>fileinput-exists<% } else { %>fileinput-new<% } %>" data-provides="fileinput">\
@@ -282,5 +282,5 @@ var FormForm = (function () {
         }
     };
     return FormForm;
-})();
+}());
 //# sourceMappingURL=bootstrap-formform.js.map

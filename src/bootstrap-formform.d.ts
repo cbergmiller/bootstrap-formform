@@ -22,4 +22,6 @@ declare class FormForm {
     constructor(dom: JQuery, fields:Array<FieldConfig>);
 
     render(): void;
+
+	getFieldByName(name: string): FieldConfig;
 }
