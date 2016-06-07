@@ -1,5 +1,6 @@
-/// <reference path="definitions/jquery.d.ts" />
-/// <reference path="definitions/underscore.d.ts" />
+"use strict";
+var $ = require("jquery");
+var _ = require("underscore");
 var FormForm = (function () {
     function FormForm(dom, fields) {
         this.dom = dom;
@@ -230,57 +231,58 @@ var FormForm = (function () {
     };
     FormForm.typeConfig = {
         text: {
-            template: FormForm.templates.input
+            template: FormForm.templates.input,
         },
         password: {
-            template: FormForm.templates.input
+            template: FormForm.templates.input,
         },
         number: {
-            template: FormForm.templates.input
+            template: FormForm.templates.input,
         },
         hidden: {
-            template: FormForm.templates.input
+            template: FormForm.templates.input,
         },
         textarea: {
             template: FormForm.templates.textarea,
-            value: true
+            value: true,
         },
         checkboxinput: {
-            template: FormForm.templates.checkbox
+            template: FormForm.templates.checkbox,
         },
         select: {
             template: FormForm.templates.select,
-            value: true
+            value: true,
         },
         selectmultiple: {
             template: FormForm.templates.selectmultiple,
-            value: true
+            value: true,
         },
         select2: {
             template: FormForm.templates.select,
             value: true,
-            select2: true
+            select2: true,
         },
         selectmultiple2: {
             template: FormForm.templates.selectmultiple,
             value: true,
-            select2: true
+            select2: true,
         },
         file: {
-            template: FormForm.templates.file
+            template: FormForm.templates.file,
         },
         button: {
-            template: FormForm.templates.button
+            template: FormForm.templates.button,
         },
         submit: {
-            template: FormForm.templates.button
+            template: FormForm.templates.button,
         },
         markdown: {
             template: FormForm.templates.textarea,
             value: true,
-            bootstrapMarkdown: true
+            bootstrapMarkdown: true,
         }
     };
     return FormForm;
 }());
+exports.FormForm = FormForm;
 //# sourceMappingURL=bootstrap-formform.js.map
