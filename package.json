@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/cbergmiller/bootstrap-formform/issues"
   },
-  "homepage": "https://github.com/cbergmiller/bootstrap-formform#readme"
+  "homepage": "https://github.com/cbergmiller/bootstrap-formform#readme",
+  "dependencies": {
+    "@types/jquery": "^1.10.27",
+    "@types/underscore": "^1.7.27",
+    "jquery": "^3.1.0",
+    "underscore": "^1.8.3"
+  }
 }
