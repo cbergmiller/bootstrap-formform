@@ -8,6 +8,7 @@
     "test": "tests"
   },
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,7 +24,7 @@
   "dependencies": {
     "@types/jquery": "^1.10.27",
     "@types/underscore": "^1.7.27",
-    "jquery": "^3.1.0",
+    "jquery.1": "^1.0.0",
     "underscore": "^1.8.3"
   }
 }

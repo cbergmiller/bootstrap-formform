@@ -1,6 +1,3 @@
-/// <reference path="definitions/jquery.d.ts" />
-/// <reference path="definitions/underscore.d.ts" />
-
 /*
  * Bootstrap-FormForm
  * Christian Bergmiller 2015/2016
