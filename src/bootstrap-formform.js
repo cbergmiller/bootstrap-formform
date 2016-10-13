@@ -155,78 +155,78 @@ var FormForm = (function () {
     };
     FormForm.templates = {
         group: _.template('<div class="form-group">\
-				<label for="<%= data.id %>"><%- data.field.label %></label>\
-				<%= data.renderedData %>\
-				<span class="help-block"><%- data.field.helpText %></span>\
-			</div>', { variable: 'data' }),
+                <label for="<%= data.id %>"><%- data.field.label %></label>\
+                <%= data.renderedData %>\
+                <span class="help-block"><%- data.field.helpText %></span>\
+            </div>', { variable: 'data' }),
         inputGroup: _.template('<div class="input-group">\
-				<% if (data.field.addonPrepend) { %>\
-					<div class="input-group-addon"><%- data.field.addonPrepend %></div>\
-				<% } %>\
-				<%= data.renderedData %>\
-				<% if (data.field.addonAppend) { %>\
-					<div class="input-group-addon"><%- data.field.addonAppend %></div>\
-				<% } %>\
-			</div>', { variable: 'data' }),
+                <% if (data.field.addonPrepend) { %>\
+                    <div class="input-group-addon"><%- data.field.addonPrepend %></div>\
+                <% } %>\
+                <%= data.renderedData %>\
+                <% if (data.field.addonAppend) { %>\
+                    <div class="input-group-addon"><%- data.field.addonAppend %></div>\
+                <% } %>\
+            </div>', { variable: 'data' }),
         horizontalGroup: _.template('<div class="form-group">\
-				<label class="col-sm-<%= data.col1 %> control-label" for="<%= data.id %>"><%- data.field.label %></label>\
-				<div class="col-sm-<%= data.col2 %>">\
-					<%= data.renderedData %>\
-				</div>\
-				<div class="col-sm-<%= data.col1 %>"></div>\
-				<div class="col-sm-<%= data.col2 %>">\
-					<span class="help-block" style="margin: 0"><%- data.field.helpText %></span>\
-				</div>\
-			</div>', { variable: 'data' }),
+                <label class="col-sm-<%= data.col1 %> control-label" for="<%= data.id %>"><%- data.field.label %></label>\
+                <div class="col-sm-<%= data.col2 %>">\
+                    <%= data.renderedData %>\
+                </div>\
+                <div class="col-sm-<%= data.col1 %>"></div>\
+                <div class="col-sm-<%= data.col2 %>">\
+                    <span class="help-block" style="margin: 0"><%- data.field.helpText %></span>\
+                </div>\
+            </div>', { variable: 'data' }),
         horizontalOffsetGroup: _.template('<div class="form-group">\
-				<div class="col-sm-offset-<%= data.col1 %> col-sm-<%= data.col2 %>">\
-					<%= data.renderedData %>\
-				</div>\
-			</div>', { variable: 'data' }),
+                <div class="col-sm-offset-<%= data.col1 %> col-sm-<%= data.col2 %>">\
+                    <%= data.renderedData %>\
+                </div>\
+            </div>', { variable: 'data' }),
         select: _.template('<select name="<%= data.name %>" class="form-control" id="<%= data.id %>"></select>', { variable: 'data' }),
         selectmultiple: _.template('<select multiple="multiple" class="form-control" name="<%= data.name %>" id="<%= data.id %>"></select>', { variable: 'data' }),
         input: _.template('<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>"\
             <% if (data.value){ %>value="<%- data.value %>"<% } %> <% if (data.placeholder){ %>placeholder="<%- data.placeholder %>"<% } %> />', { variable: 'data' }),
         textarea: _.template('<textarea name="<%= data.name %>" class="form-control" id="<%= data.id %>" rows="4"></textarea>', { variable: 'data' }),
         file: _.template('<div class="controls" style="height: 34px;">\
-				<div class="fileinput <% if (data.value) { %>fileinput-exists<% } else { %>fileinput-new<% } %>" data-provides="fileinput">\
-					<input id="<%= data.id %>-clear_id" name="<%= data.name %>-clear" type="checkbox">\
-					<div class="input-group">\
-						<div class="form-control uneditable-input" data-trigger="fileinput">\
-							<span class="fileinput-filename"><%- data.value %></span>\
-						</div>\
-						<span class="input-group-addon btn btn-grey btn-file">\
-							<span class="fileinput-new">select File</span>\
-							<span class="fileinput-exists">\
-								<span class="glyphicon glyphicon-file" style="margin-right: 0"></span>\
-							</span>\
-							<input type="file" id="<%= data.id %>" name="<%= data.name %>">\
-						</span>\
-						<a href="#" class="input-group-addon btn btn-grey fileinput-exists" data-dismiss="fileinput">\
-							<span class="glyphicon glyphicon-remove" style="margin-right: 0"></span>\
-						</a>\
-					</div>\
-				</div>\
-			</div>', { variable: 'data' }),
+                <div class="fileinput\
+                    <% if (data.value) { %>fileinput-exists<% } else { %>fileinput-new<% } %> input-group"\
+                    data-provides="fileinput">\
+                    <div class="form-control" data-trigger="fileinput">\
+                        <i class="glyphicon glyphicon-file fileinput-exists"></i>\
+                        <span class="fileinput-filename"><%- data.value %></span>\
+                    </div>\
+                    <span class="input-group-addon btn btn-grey btn-file">\
+                        <span class="fileinput-new">Select file</span>\
+                        <span class="fileinput-exists">\
+                            <span class="glyphicon glyphicon-file" style="margin-right: 0"></span>\
+                        </span>\
+                        <input type="file" id="<%= data.id %>-clear_id" name="<%= data.name %>-clear">\
+                    </span>\
+                    <a href="#" class="input-group-addon btn btn-grey fileinput-exists" data-dismiss="fileinput">\
+                        <span class="glyphicon glyphicon-remove" style="margin-right: 0"></span>\
+                    </a>\
+                </div>\
+            </div>', { variable: 'data' }),
         options: _.template('<% _.each(choices, function(choice) { %>\
-				<option value="<%= choice[0] %>"><%- choice[1] %></option>\
-			<% }) %>', { variable: 'choices' }),
+                <option value="<%= choice[0] %>"><%- choice[1] %></option>\
+            <% }) %>', { variable: 'choices' }),
         optGroups: _.template('<% _.each(choices, function(optgroup) { %>\
-				<optgroup label="<%- optgroup[0] %>">\
-					<% _.each(optgroup[1], function(choice) { %>\
-						<option value="<%= choice[0] %>"><%- choice[1] %></option>\
-					<% }) %>\
-				</optgroup>\
-			<% }) %>', { variable: 'choices' }),
+                <optgroup label="<%- optgroup[0] %>">\
+                    <% _.each(optgroup[1], function(choice) { %>\
+                        <option value="<%= choice[0] %>"><%- choice[1] %></option>\
+                    <% }) %>\
+                </optgroup>\
+            <% }) %>', { variable: 'choices' }),
         checkbox: _.template('<div class="checkbox">\
-				<label>\
-					<input type="checkbox" name="<%= data.name %>" <% if (data.value){ %>checked="checked"<% } %>> <%- data.label %>\
-				</label>\
-			</div>', { variable: 'data' }),
+                <label>\
+                    <input type="checkbox" name="<%= data.name %>" <% if (data.value){ %>checked="checked"<% } %>> <%- data.label %>\
+                </label>\
+            </div>', { variable: 'data' }),
         button: _.template('<button type="<%= data.type %>" class="btn <%= data.cls %>">\
-				<% if (data.icon) { %><span class="glyphicon glyphicon-<%= data.icon %>"></span><% } %>\
-				<span><%- data.label %></span>\
-			</button>', { variable: 'data' })
+                <% if (data.icon) { %><span class="glyphicon glyphicon-<%= data.icon %>"></span><% } %>\
+                <span><%- data.label %></span>\
+            </button>', { variable: 'data' })
     };
     FormForm.typeConfig = {
         text: {
