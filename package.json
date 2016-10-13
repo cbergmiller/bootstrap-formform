@@ -1,0 +1,30 @@
+{
+  "name": "bootstrap-formform",
+  "version": "1.0.0",
+  "description": "Client-side form rendering for Bootstrap 3.",
+  "main": "./dist/bootstrap-formform.js",
+  "typings": "./dist/bootstrap-formform.d.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbergmiller/bootstrap-formform.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cbergmiller/bootstrap-formform/issues"
+  },
+  "homepage": "https://github.com/cbergmiller/bootstrap-formform#readme",
+  "dependencies": {
+    "@types/jquery": "^1.10.27",
+    "@types/underscore": "^1.7.27",
+    "jquery.1": "^1.0.0",
+    "underscore": "^1.8.3"
+  }
+}

@@ -1,6 +1,3 @@
-/// <reference path="definitions/jquery.d.ts" />
-/// <reference path="definitions/underscore.d.ts" />
-
 /*
  * Bootstrap-FormForm
  * Christian Bergmiller 2015/2016
@@ -22,7 +19,7 @@
  */
 
 
-interface FieldConfig {
+export interface FieldConfig {
     type: string;
     name?: string;
     label?: string;
@@ -36,7 +33,7 @@ interface FieldConfig {
     helpText?: string;
 }
 
-class FormForm {
+export class FormForm {
     isHorizontal: boolean;
     col1: number;
     col2: number;
