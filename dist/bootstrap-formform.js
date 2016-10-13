@@ -16,7 +16,7 @@
  *      placeholder : '',
  *    }
  * ];
-*/
+ */
 "use strict";
 var FormForm = (function () {
     function FormForm(dom, fields) {

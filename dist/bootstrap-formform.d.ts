@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 /// <reference types="highcharts" />
-export interface IFieldConfig {
+export interface FieldConfig {
     type: string;
     name?: string;
     label?: string;
@@ -17,7 +17,7 @@ export declare class FormForm {
     isHorizontal: boolean;
     col1: number;
     col2: number;
-    fields: Array<IFieldConfig>;
+    fields: Array<FieldConfig>;
     dom: JQuery;
     static templates: {
         group: (...data: any[]) => string;
@@ -87,7 +87,7 @@ export declare class FormForm {
             bootstrapMarkdown: boolean;
         };
     };
-    constructor(dom: JQuery, fields: Array<IFieldConfig>);
+    constructor(dom: JQuery, fields: Array<FieldConfig>);
     /**
      * Render the Form and attach it to the DOM.
      */
@@ -115,7 +115,7 @@ export declare class FormForm {
     /**
      * Get the field config object by name.
      */
-    getFieldByName(name: string): IFieldConfig;
+    getFieldByName(name: string): FieldConfig;
     reset(): void;
     update(obj: any): void;
 }

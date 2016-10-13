@@ -19,7 +19,7 @@
  */
 
 
-interface FieldConfig {
+export interface FieldConfig {
     type: string;
     name?: string;
     label?: string;
@@ -33,7 +33,7 @@ interface FieldConfig {
     helpText?: string;
 }
 
-class FormForm {
+export class FormForm {
     isHorizontal: boolean;
     col1: number;
     col2: number;
