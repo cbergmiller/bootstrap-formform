@@ -1,3 +1,5 @@
+import * as $ from "jquery";
+import * as _ from "underscore";
 /*
  * Bootstrap-FormForm
  * Christian Bergmiller 2015/2016
@@ -19,7 +21,7 @@
  */
 
 
-export interface FieldConfig {
+export interface IFieldConfig {
     type: string;
     name?: string;
     label?: string;
@@ -37,7 +39,7 @@ export class FormForm {
     isHorizontal: boolean;
     col1: number;
     col2: number;
-    fields: Array<FieldConfig>;
+    fields: Array<IFieldConfig>;
     dom: JQuery;
 
     static templates = {
@@ -187,7 +189,7 @@ export class FormForm {
         }
     };
 
-    constructor(dom: JQuery, fields: Array<FieldConfig>) {
+    constructor(dom: JQuery, fields: Array<IFieldConfig>) {
         this.dom = dom;
         this.fields = fields;
         this.col1 = 4;
@@ -208,7 +210,7 @@ export class FormForm {
      * @private
      */
     _renderButtons() {
-        var renderedButtons = '';
+        let renderedButtons = '';
 
         _.each(this.fields, function (field) {
             if (!_.contains(['button', 'submit'], field.type)) return;
@@ -332,7 +334,7 @@ export class FormForm {
     /**
      * Get the field config object by name.
      */
-    getFieldByName(name: string): FieldConfig {
+    getFieldByName(name: string): IFieldConfig {
         return _.find(this.fields, function (field) {
             return field.name == name
         })
