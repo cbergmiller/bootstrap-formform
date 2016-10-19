@@ -1,23 +1,6 @@
-/*
- * Bootstrap-FormForm
- * Christian Bergmiller 2015/2016
- * https://github.com/cbergmiller/bootstrap-formform
- *
- * fields = [
- *    {
- * 		name: '',
- * 		label: '',
- * 		addonPrepend: '',
- * 		addonAppend: '',
- * 		type: '',
- * 		'class': '',
- * 		id: null,
- * 		choices: [],
- *      placeholder : '',
- *    }
- * ];
- */
 "use strict";
+var $ = require("jquery");
+var _ = require("underscore");
 var FormForm = (function () {
     function FormForm(dom, fields) {
         this.dom = dom;
